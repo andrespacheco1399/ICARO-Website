@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 218 69% 6%;
+        --foreground: 214 100% 98%;
+        --card: 214 70% 12%;
+        --card-foreground: 214 100% 98%;
+        --popover: 214 70% 12%;
+        --popover-foreground: 214 100% 98%;
+        --primary: 192 100% 50%;
+        --primary-foreground: 218 69% 6%;
+        --secondary: 211 70% 24%;
+        --secondary-foreground: 214 100% 98%;
+        --muted: 214 70% 12%;
+        --muted-foreground: 213 33% 73%;
+        --accent: 190 100% 61%;
+        --accent-foreground: 218 69% 6%;
+        --destructive: 0 75% 62%;
+        --destructive-foreground: 214 100% 98%;
+        --border: 211 70% 24%;
+        --input: 211 70% 24%;
+        --ring: 192 100% 50%;
+        --radius: 0.875rem;
+
+        /* ICARO brand tokens */
+        --ic-bg: #050d1b;
+        --ic-night: #091b33;
+        --ic-tech: #123b68;
+        --ic-cyan: #00cfff;
+        --ic-cyan-2: #39e4ff;
+        --ic-white: #f6faff;
+        --ic-grey: #a5b8cf;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 88px;
+    }
+    body {
+        @apply bg-background text-foreground font-body antialiased;
+        overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+        @apply font-display;
+    }
+    ::selection {
+        background: rgba(0, 207, 255, 0.35);
+        color: #f6faff;
+    }
+    :focus-visible {
+        outline: 2px solid var(--ic-cyan-2);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+}
+
+@layer components {
+    .ic-glass {
+        background: linear-gradient(160deg, rgba(9, 27, 51, 0.72), rgba(5, 13, 27, 0.55));
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(57, 228, 255, 0.14);
+        box-shadow: inset 0 1px 0 rgba(246, 250, 255, 0.04), 0 20px 60px -30px rgba(0, 0, 0, 0.8);
+    }
+    .ic-eyebrow {
+        @apply font-mono text-[11px] sm:text-xs uppercase tracking-[0.28em] text-ic-cyan;
+    }
+    .ic-section {
+        @apply relative px-5 sm:px-8 lg:px-12 py-24 sm:py-32;
+    }
+    .ic-container {
+        @apply mx-auto w-full max-w-[1240px];
+    }
+    .ic-grid-bg {
+        background-image:
+            linear-gradient(rgba(57, 228, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(57, 228, 255, 0.045) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+    .ic-text-glow {
+        --ic-glow: 0 0 28px rgba(0, 207, 255, 0.45);
+        text-shadow: var(--ic-glow);
+    }
+    /* Brand "Λ": the real A stays in the DOM (SEO / screen readers) but is hidden;
+       a vertically flipped V of the same font, weight and colour is drawn in its place. */
+    .ic-lambda {
+        position: relative;
+        -webkit-text-fill-color: transparent;
+        text-shadow: none;
+        --fa: 0.97em; --sx: 1.07; --dx: 0.025em; --cx: 0.35em;
+    }
+    .ic-lambda::before {
+        content: "V";
+        position: absolute;
+        left: 0; top: 0;
+        line-height: normal;
+        -webkit-text-fill-color: currentColor;
+        text-shadow: var(--ic-glow, none);
+        transform: translateX(var(--dx)) scale(var(--sx), -1);
+        transform-origin: var(--cx) calc(var(--fa) - 0.365em);
+        pointer-events: none;
+    }
+    .ic-lambda-mono { --fa: 1.02em; --sx: 1; --dx: 0em; --cx: 0.3em; }
+    .ic-spotlight {
+        background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 207, 255, 0.12), transparent 45%);
+    }
+}
+
+@keyframes ic-pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(57, 228, 255, 0.6); }
+    50% { box-shadow: 0 0 0 8px rgba(57, 228, 255, 0); }
+}
+@keyframes ic-wave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@keyframes ic-dash {
+    0% { stroke-dashoffset: 60; }
+    80%, 100% { stroke-dashoffset: -460; }
+}
+@keyframes ic-node {
+    0%, 62%, 100% { box-shadow: 0 0 0 rgba(0, 207, 255, 0); border-color: rgba(57, 228, 255, 0.22); }
+    76% { box-shadow: 0 0 28px rgba(0, 207, 255, 0.55); border-color: rgba(57, 228, 255, 0.9); }
+}
+@keyframes ic-spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes ic-bars {
+    0%, 100% { transform: scaleY(0.25); }
+    50% { transform: scaleY(1); }
+}
+@keyframes ic-breathe {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.06); }
+}
+@keyframes ic-scroll {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(14px); opacity: 0; }
+}
+
+.ic-anim-pulse-dot { animation: ic-pulse-dot 2s ease-in-out infinite; }
+.ic-anim-wave { animation: ic-wave 18s linear infinite; }
+.ic-anim-spin { animation: ic-spin 40s linear infinite; }
+.ic-anim-breathe { animation: ic-breathe 6s ease-in-out infinite; }
+.ic-anim-scroll { animation: ic-scroll 1.8s ease-in-out infinite; }
+
+/* Ecosystem diagram: travelling energy pulses + progressive node illumination (cycle 7s) */
+@keyframes ic-run-y { 0% { transform: translateY(-100%); } 15%, 100% { transform: translateY(100%); } }
+@keyframes ic-run-y-fast { 0% { transform: translateY(-100%); } 8%, 100% { transform: translateY(100%); } }
+@keyframes ic-run-x { 0% { transform: translateX(-100%); } 15%, 100% { transform: translateX(100%); } }
+@keyframes ic-dept-glow {
+    0%, 22%, 100% { box-shadow: 0 0 22px -10px rgba(0, 207, 255, 0.45); border-color: rgba(57, 228, 255, 0.3); }
+    5% { box-shadow: 0 0 38px -4px rgba(0, 207, 255, 0.85), inset 0 0 22px -8px rgba(0, 207, 255, 0.7); border-color: rgba(57, 228, 255, 0.95); }
+}
+@keyframes ic-app-glow {
+    0%, 16%, 100% { box-shadow: 0 0 0 rgba(0, 207, 255, 0); border-color: rgba(57, 228, 255, 0.16); }
+    4% { box-shadow: 0 0 26px -6px rgba(0, 207, 255, 0.75); border-color: rgba(57, 228, 255, 0.7); }
+}
+.ic-run { position: absolute; inset: 0; transform: translateY(-100%); animation: ic-run-y 7s linear infinite; background: linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(57, 228, 255, 0.95) 92%, transparent 100%); }
+.ic-run-fast { animation-name: ic-run-y-fast; }
+.ic-run-x { transform: translateX(-100%); animation-name: ic-run-x; background: linear-gradient(to right, transparent 0%, transparent 50%, rgba(57, 228, 255, 0.95) 92%, transparent 100%); }
+.ic-dept-glow { animation: ic-dept-glow 7s ease-out infinite; }
+.ic-app-glow { animation: ic-app-glow 7s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
